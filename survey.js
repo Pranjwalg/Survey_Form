@@ -1,99 +1,99 @@
 
-        function submitForm() {
-            var firstName = document.getElementById("firstName").value;
-            var lastName = document.getElementById("lastName").value;
-            var dob = document.getElementById("dob").value;
-            var country = document.getElementById("country").value;
-            var gender = document.querySelector('input[name="gender"]:checked');
-            var profession = document.getElementById("profession").value;
-            var email = document.getElementById("email").value;
-            var mobile = document.getElementById("mobile").value;
-    
-            var isValid = true;
-    
-            // Reset error messages
-            var fields = ["firstName", "lastName", "dob", "country", "gender", "profession", "email", "mobile"];
-            fields.forEach(function(field) {
-                document.getElementById(field + "Error").textContent = "";
-            });
-    
-            if (!firstName) {
-                document.getElementById("firstNameError").textContent = "Please enter your first name.";
-                isValid = false;
-            }
-    
-            if (!lastName) {
-                document.getElementById("lastNameError").textContent = "Please enter your last name.";
-                isValid = false;
-            }
-    
-            if (!dob) {
-                document.getElementById("dobError").textContent = "Please enter your date of birth.";
-                isValid = false;
-            }
-    
-            if (!country) {
-                document.getElementById("countryError").textContent = "Please select your country.";
-                isValid = false;
-            }
-    
-            if (!gender) {
-                document.getElementById("genderError").textContent = "Please select your gender.";
-                isValid = false;
-            }
-    
-            if (!profession) {
-                document.getElementById("professionError").textContent = "Please enter your profession.";
-                isValid = false;
-            }
-    
-            if (!email) {
-                document.getElementById("emailError").textContent = "Please enter your email address.";
-                isValid = false;
-            }
-    
-            if (!mobile) {
-                document.getElementById("mobileError").textContent = "Please enter your mobile number.";
-                isValid = false;
-            }
-    
-            if (isValid) {
-                document.getElementById("errorAlert").classList.add("d-none");
-    
-                var genderValue = gender.value;
-    
-                var popupContent = `
-                    <p>First Name: ${firstName}</p>
-                    <p>Last Name: ${lastName}</p>
-                    <p>Date of Birth: ${dob}</p>
-                    <p>Country: ${country}</p>
-                    <p>Gender: ${genderValue}</p>
-                    <p>Profession: ${profession}</p>
-                    <p>Email: ${email}</p>
-                    <p>Mobile Number: ${mobile}</p>
-                `;
-                var popup = window.open("", "Survey Data", "width=600,height=400");
-        popup.document.write(popupContent);
-        popup.focus();
+function resetForm() {
+    document.getElementById("surveyForm").reset();
+    document.getElementById("errorDiv").style.display = "none";
+}
 
-        document.getElementById("surveyForm").reset();
-            } else {
-                document.getElementById("errorAlert").classList.remove("d-none");
-            }
-        }
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    resetForm();
+}
+
+document.getElementById("surveyForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Validate first name
+    var firstName = document.getElementById("firstName").value;
+
+    if (firstName.trim() === "") {
+        showError("First Name cannot be empty.");
+        return;
+    }
+
+    // Validate last name
+    var lastName = document.getElementById("lastName").value;
+
+    if (lastName.trim() === "") {
+        showError("Last Name cannot be empty.");
+        return;
+    }
+
+    // Check if first name contains numbers
+    if (/\d/.test(firstName)) {
+        showError("First Name cannot contain numbers.");
+        return;
+    }
+
+    // Check if last name contains numbers
+    if (/\d/.test(lastName)) {
+        showError("Last Name cannot contain numbers.");
+        return;
+    }
+
+    // Validate date of birth
+    var dob = document.getElementById("dob").value;
+    var dobDate = new Date(dob);
+    var today = new Date();
+
+    if (dobDate > today) {
+        showError("Please enter a valid Date of Birth.");
+        return;
+    }
+
+    // Validate mobile number
+    var mobile = document.getElementById("mobile").value;
+
+    if (!/^\d{10}$/.test(mobile)) {
+        showError("Please enter a 10-digit mobile number.");
+        return;
+    }
+// Validate gender
+var selectedGender = document.querySelectorAll('input[name="gender"]:checked');
+if (selectedGender.length === 0) {
+showError("Please select a gender.");
+return;
+}
+    // Validate profession
+    var profession = document.getElementById("profession").value;
+
+    if (profession.length < 5) {
+        showError("Please enter a profession with at least 5 characters.");
+        return;
+    }
+
+    var suggestions = document.getElementById("suggestions").value;
+
     
-        function resetForm() {
-            var fields = ["firstName", "lastName", "dob", "country", "male", "female", "profession", "email", "mobile"];
-            fields.forEach(function(field) {
-                document.getElementById(field).value = "";
-            });
-    
-            var errorFields = ["firstNameError", "lastNameError", "dobError", "countryError", "genderError", "professionError", "emailError", "mobileError"];
-            errorFields.forEach(function(field) {
-                document.getElementById(field).textContent = "";
-            });
-    
-            document.getElementById("errorAlert").classList.add("d-none");
-        }
- 
-    
+    var formData = new FormData(this);
+    var popupContent = "<ul>";
+
+    for (var pair of formData.entries()) {
+        popupContent += "<li><strong>" + pair[0] + ":</strong> " + pair[1] + "</li>";
+    }
+
+    popupContent += "</ul>";
+    document.getElementById("popupContent").innerHTML = popupContent;
+    document.getElementById("popup").style.display = "block";
+});
+
+
+if (suggestions.trim() !== "") {
+popupContent += "<li><strong>Suggestions:</strong> " + suggestions + "</li>";
+}
+
+
+function showError(message) {
+    var errorDiv = document.getElementById("errorDiv");
+    errorDiv.innerHTML = message;
+    errorDiv.style.display = "block";
+}
