@@ -1,94 +1,263 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Form</title>
-    <!-- Add Bootstrap CSS link -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   <link href="style.css" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+          
+            max-width: 600px;
+       height: 700px;
+        margin: auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 0px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn-secondary {
+            background-color: #ccc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+        #h{
+            text-align: center;
+            color: white;
+           
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .popup label {
+            font-weight: normal;
+        }
+
+        #d{
+            background-color: hsl(211, 100%, 50%);
+            height: 900px;
+            width: 900px;
+            margin: auto;
+            margin-top: 50px;;
+        }
+    </style>
 </head>
-<body class="container mt-5">
-
-    <h1 class="mb-4 text-center">Survey Form</h1>
-    <div class="container mt-5">
-    <form id="surveyForm">
-        <div class="form-group">
-            <label for="firstName">First Name:</label>
-            <input type="text" class="form-control" id="firstName" required>
-            <div id="firstNameError" class="error-message"></div>
-        </div>
-
-        <div class="form-group">
-            <label for="lastName">Last Name:</label>
-            <input type="text" class="form-control" id="lastName" required>
-            <div id="lastNameError" class="error-message"></div>
-        </div>
-
-        <div class="form-group">
-            <label for="dob">Date of Birth:</label>
-            <input type="date" class="form-control" id="dob" required>
-            <div id="dobError" class="error-message"></div>
-        </div>
-
-        <div class="form-group">
-            <label for="country">Country:</label>
-            <select class="form-control" id="country" required>
-                <option value="USA">USA</option>
-                <option value="Canada">Canada</option>
-                <option value="UK">UK</option>
-            </select>
-            <div id="countryError" class="error-message"></div>
-        </div>
-
-        <div class="form-group">
-            <label>Gender:</label>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="male" name="gender" value="Male">
-                <label class="form-check-label" for="male">Male</label>
+<body>
+    <div id="d">
+        <h1 id="h">Customer Survey Form</h1>
+    <div class="container">
+        <form id="surveyForm">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
             </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="female" name="gender" value="Female">
-                <label class="form-check-label" for="female">Female</label>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
             </div>
-            <div id="genderError" class="error-message"></div>
-        </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" name="country" required>
+                    <option value="" disabled selected>Select Country</option>
+                    <option value="UK">India</option>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <option value="UK">UK</option>
+                 
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Gender</label><br>
+                <input type="checkbox" id="male" name="gender" value="male"> <label for="male">Male</label><br>
+                <input type="checkbox" id="female" name="gender" value="female"> <label for="female">Female</label><br>
+                <input type="checkbox" id="other" name="gender" value="other"> <label for="other">Other</label><br>
+            </div>
+            <div class="form-group">
+                <label for="profession">Profession</label>
+                <input type="text" id="profession" name="profession" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email </label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" >
+            </div>
 
-        <div class="form-group">
-            <label for="profession">Profession:</label>
-            <input type="text" class="form-control" id="profession" required>
-            <div id="professionError" class="error-message"></div>
-        </div>
 
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" required>
-            <div id="emailError" class="error-message"></div>
-        </div>
+            <div class="form-group">
+                <label for="firstTime">Is this your first time using our product & services?</label><br>
+                <input type="radio" id="firstTimeYes" name="firstTime" value="yes" required>
+                <label for="firstTimeYes">Yes</label><br>
+                <input type="radio" id="firstTimeNo" name="firstTime" value="no" required>
+                <label for="firstTimeNo">No</label><br>
+            </div>
 
-        <div class="form-group">
-            <label for="mobile">Mobile Number:</label>
-            <input type="tel" class="form-control" id="mobile" required>
-            <div id="mobileError" class="error-message"></div>
-        </div>
+            <div class="form-group">
+                <label for="recommend">Would you recommend us to your friends and colleagues?</label><br>
+                <input type="radio" id="recommendYes" name="recommend" value="yes" required>
+                <label for="recommendYes">Yes</label><br>
+                <input type="radio" id="recommendNo" name="recommend" value="no" required>
+                <label for="recommendNo">No</label><br>
+            </div>
 
-        <!-- Bootstrap Alert for displaying errors -->
-        <div id="errorAlert" class="alert alert-danger d-none" role="alert">
-            Please fill out all fields.
-        </div>
+            <div class="form-group">
+                <label for="satisfaction">How satisfied are you with our company?</label><br>
+                <input type="radio" id="satisfied" name="satisfaction" value="satisfied" required>
+                <label for="satisfied">Satisfied</label><br>
+                <input type="radio" id="undecided" name="satisfaction" value="undecided" required>
+                <label for="undecided">Undecided</label><br>
+                <input type="radio" id="unsatisfied" name="satisfaction" value="unsatisfied" required>
+                <label for="unsatisfied">Unsatisfied</label><br>
+            </div>
+            <div class="form-group">
+                <label for="suggestions">Do you have suggestions to improve our services?</label><br>
+                <textarea id="suggestions" name="suggestions" rows="4" cols="50"></textarea>
+            </div>
 
-        <button type="button" class="btn btn-primary mr-2" onclick="submitForm()">Submit</button>
-        <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
-    </form>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+        </form>
+        <div id="errorDiv" style="color: red;"></div>
+    </div>
+</div>
+    <div class="popup" id="popup">
+        <h2>Survey Form Submission</h2>
+        <div id="popupContent"></div>
+        <button class="btn btn-primary" onclick="closePopup()">Close</button>
     </div>
 
-    <!-- Add Bootstrap JS and Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="survey.js" />
-    
-    
-    
+    <script>
+        function resetForm() {
+            document.getElementById("surveyForm").reset();
+            document.getElementById("errorDiv").style.display = "none";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            resetForm();
+        }
+
+        document.getElementById("surveyForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Validate first name
+            var firstName = document.getElementById("firstName").value;
+
+            if (firstName.trim() === "") {
+                showError("First Name cannot be empty.");
+                return;
+            }
+
+            // Validate last name
+            var lastName = document.getElementById("lastName").value;
+
+            if (lastName.trim() === "") {
+                showError("Last Name cannot be empty.");
+                return;
+            }
+
+            // Check if first name contains numbers
+            if (/\d/.test(firstName)) {
+                showError("First Name cannot contain numbers.");
+                return;
+            }
+
+            // Check if last name contains numbers
+            if (/\d/.test(lastName)) {
+                showError("Last Name cannot contain numbers.");
+                return;
+            }
+
+            // Validate date of birth
+            var dob = document.getElementById("dob").value;
+            var dobDate = new Date(dob);
+            var today = new Date();
+
+            if (dobDate > today) {
+                showError("Please enter a valid Date of Birth.");
+                return;
+            }
+
+            // Validate mobile number
+            var mobile = document.getElementById("mobile").value;
+
+            if (!/^\d{10}$/.test(mobile)) {
+                showError("Please enter a 10-digit mobile number.");
+                return;
+            }
+ // Validate gender
+ var selectedGender = document.querySelectorAll('input[name="gender"]:checked');
+    if (selectedGender.length === 0) {
+        showError("Please select a gender.");
+        return;
+    }
+            // Validate profession
+            var profession = document.getElementById("profession").value;
+
+            if (profession.length < 5) {
+                showError("Please enter a profession with at least 5 characters.");
+                return;
+            }
+
+            var suggestions = document.getElementById("suggestions").value;
+
+            
+            var formData = new FormData(this);
+            var popupContent = "<ul>";
+
+            for (var pair of formData.entries()) {
+                popupContent += "<li><strong>" + pair[0] + ":</strong> " + pair[1] + "</li>";
+            }
+
+            popupContent += "</ul>";
+            document.getElementById("popupContent").innerHTML = popupContent;
+            document.getElementById("popup").style.display = "block";
+        });
+
+        
+    if (suggestions.trim() !== "") {
+        popupContent += "<li><strong>Suggestions:</strong> " + suggestions + "</li>";
+    }
+
+
+        function showError(message) {
+            var errorDiv = document.getElementById("errorDiv");
+            errorDiv.innerHTML = message;
+            errorDiv.style.display = "block";
+        }
+    </script>
 </body>
 </html>
